@@ -5,7 +5,7 @@ on:
     branches: [master]
   schedule:
     # UTC is currently -2 wrt Europe/Stockholm (CEST)
-    - cron: "05 12 * * *"
+    - cron: "05 12,16 * * *"
 
 jobs:
   build:
