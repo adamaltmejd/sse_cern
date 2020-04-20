@@ -1,41 +1,38 @@
-setwd("C:/Users/nero/Documents/covid")
-workdir <- getwd()
+library(readxl)
+library(data.table)
+library(ggplot2)
+library(dplyr)
 
-require(readxl)
-require(data.table)
-require(ggplot2)
-require(dplyr)
-
-# Download latest data from Arbetsförmedlingen Jan-March 
+# Download latest data from Arbetsfï¿½rmedlingen Jan-March
 download.file("https://arbetsformedlingen.se/download/18.47a458fb16df81b9133d5f5/1581081168259/varsel-riket-2020-01.xls",
-              destfile = file.path(workdir, "data", "AF", "AF_Jan.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
+              destfile = file.path("data", "AF", "AF_Jan.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
 
 download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565432/1583502368823/varsel-riket-2020-02.xls",
-              destfile = file.path(workdir, "data", "AF", "AF_Feb.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
+              destfile = file.path("data", "AF", "AF_Feb.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
 
 download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d956585b8/1586106682398/varsel-riket_2020-03.xls",
-              destfile = file.path(workdir, "data", "AF", "AF_Mar.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
+              destfile = file.path("data", "AF", "AF_Mar.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
 
 download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d956596e0/1586783381651/Varsel-riket_2020-04-10.xls",
-              destfile = file.path(workdir, "data", "AF", "AF_Apr.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
+              destfile = file.path("data", "AF", "AF_Apr.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
 
 # Store relevant data
-destfile <- file.path(workdir, "data", "AF", "AF_Jan.xls")
+destfile <- file.path("data", "AF", "AF_Jan.xls")
 AF_Jan <-  data.table((read_excel(destfile, sheet = 1, range="A7:D26", col_types = c("text","text","numeric","numeric"))))
 setnames(AF_Jan, c("SNI", "Name", "N_not", "N"))
 AF_Jan$Month <- "January"
 
-destfile <- file.path(workdir, "data", "AF", "AF_Feb.xls")
+destfile <- file.path("data", "AF", "AF_Feb.xls")
 AF_Feb <-  data.table((read_excel(destfile, sheet = 1, range="A7:D26", col_types = c("text","text","numeric","numeric"))))
 setnames(AF_Feb, c("SNI", "Name", "N_not", "N"))
 AF_Feb$Month <- "February"
 
-destfile <- file.path(workdir, "data", "AF", "AF_Mar.xls")
+destfile <- file.path("data", "AF", "AF_Mar.xls")
 AF_Mar <-  data.table((read_excel(destfile, sheet = 1, range="A7:D26", col_types = c("text","text","numeric","numeric"))))
 setnames(AF_Mar, c("SNI", "Name", "N_not", "N"))
 AF_Mar$Month <- "March"
 
-destfile <- file.path(workdir, "data", "AF", "AF_Apr.xls")
+destfile <- file.path("data", "AF", "AF_Apr.xls")
 AF_Apr <-  data.table((read_excel(destfile, sheet = 1, range="A12:D31", col_types = c("text","text","numeric","numeric"))))
 setnames(AF_Apr, c("SNI", "Name", "N_not", "N"))
 AF_Apr$Month <- "April"
@@ -68,13 +65,13 @@ AF$SNI2[AF$SNI == "S"] <- "Other services"
 p <- ggplot(AF, aes(SNI2, N, group = Month)) +
   geom_col(aes(fill = Month)) +
 labs(title = "Advance layoff notifications in 2020",
-     caption = paste0("Source: Arbetsförmedlingen. Updated: 2020-04-10."),
+     caption = paste0("Source: Arbetsfï¿½rmedlingen. Updated: 2020-04-10."),
      x = " ",
      y = "Number of employees notified") + theme_linedraw() + theme(panel.border = element_blank(),
           panel.grid.major = element_line(linetype = "dotted", color = "grey60", size = 0.2),
           panel.grid.minor = element_line(linetype = "dotted", color = "grey80", size = 0.2),
           axis.text.x = element_text(angle = 90, hjust = 1))
 
-ggsave(filename = "layoff.png", plot = p,
+ggsave(filename = file.path("docs", "layoff.png"), plot = p,
        height = 6, width = 10, units="in", dpi = 300,
        bg = "transparent")
