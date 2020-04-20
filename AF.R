@@ -65,7 +65,7 @@ AF$SNI2[AF$SNI == "S"] <- "Other services"
 p <- ggplot(AF, aes(SNI2, N, group = Month)) +
   geom_col(aes(fill = Month)) +
 labs(title = "Advance layoff notifications in 2020",
-     caption = paste0("Source: Arbetsf�rmedlingen. Updated: 2020-04-10."),
+     caption = paste0("Source: Arbetsförmedlingen. Updated: 2020-04-10."),
      x = " ",
      y = "Number of employees notified") + theme_linedraw() + theme(panel.border = element_blank(),
           panel.grid.major = element_line(linetype = "dotted", color = "grey60", size = 0.2),
