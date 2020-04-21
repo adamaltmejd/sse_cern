@@ -4,7 +4,7 @@ require(ggplot2)
 require(dplyr)
 
 # Download latest Google Community Mobility data
-download.file("https://query1.finance.yahoo.com/v7/finance/download/%5EOMX?period1=1555616072&period2=1587238472&interval=1d&events=history",
+download.file(paste0("https://query1.finance.yahoo.com/v7/finance/download/%5EOMX?period1=1555616072&period2=",  as.numeric(as.POSIXct(Sys.Date(), format="%Y-%m-%d")), "&interval=1d&events=history"),
               destfile = file.path("data", "OMX30", "OMX30.csv"), method = "curl", extra = c("-L"), quiet = FALSE)
 
 # Store relevant data
@@ -14,12 +14,16 @@ OMX30[, Date := as.Date(Date, "%y-%m-%d")]
 
 OMX30$lastclose[length(OMX30$Close)] <- last(OMX30$Close)
 
+lastdate <- max(OMX30$Date)
+
 # Create plot
 p <- ggplot(OMX30, aes(x=Date)) +
   geom_line(aes(y = Close), color = "red") + geom_point(aes(y = lastclose), color = "red") +
   geom_hline(yintercept=last(OMX30$Close), linetype="dashed", color = "red") +
+   scale_x_date(date_breaks = "1 month", date_labels = "%b %y") +
+
   labs(title = "NASDAQ Stockholm OMX-30 Index",
-       caption = paste0("Source: Yahoo! Finance. Updated: ", Sys.Date(),"."),
+       caption = paste0("Source: Yahoo! Finance. Updated: ", lastdate,"."),
        x = " ",
        y = "OMX-30 Index") + theme_linedraw() +
   theme(panel.border = element_blank(),

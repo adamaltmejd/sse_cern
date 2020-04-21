@@ -27,8 +27,9 @@ p <- ggplot(plotdata, aes(x=wk)) +
   geom_line(aes(y = y17), color = "grey") +
   geom_line(aes(y = y16), color = "grey") +
   geom_line(aes(y = y15), color = "grey") +
+  scale_x_continuous(breaks = seq(1,current_wk+10,by = 1)) +
   labs(title = "Weekly total number of deaths in Sweden 2015-2019 (grey) and 2020 (red)",
-     caption = paste0("Source: Socialstyrelsen. Updated: Week ", lastweek, " 2020."),
+     caption = paste0("Source: National Board of Health and Welfare. Updated: Week ", lastweek, " 2020."),
        x = "Week",
      y = "Weekly number of deaths") + theme_linedraw() + theme(panel.border = element_blank(),
   panel.grid.major = element_line(linetype = "dotted", color = "grey60", size = 0.2),

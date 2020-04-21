@@ -12,6 +12,7 @@ destfile <- file.path("data", "Google", "Google.csv")
 Google <-  data.table(read_csv(destfile))
 Google_SE <- subset(Google, country_region_code == "SE" & is.na(sub_region_1)==1)
 Google_SE[, date := as.Date(date, "%y-%m-%d")]
+lastdate <- max(Google_SE$date)
 
 # Create plot
 p <- ggplot(Google_SE, aes(x=date)) +
@@ -24,9 +25,10 @@ p <- ggplot(Google_SE, aes(x=date)) +
   scale_colour_manual("",
                       breaks = c("Parks", "Residential", "Grocery & pharmacy", "Retail & recreation", "Workplace", "Transit stations"),
                       values = c("red", "blue", "green", "orange", "black", "grey")) +
-  xlab(" ") +
+    scale_x_date(date_breaks = "3 day", date_labels = "%d/%m") +
+    xlab(" ") +
   labs(title = "Google Community Mobility Index for Sweden",
-       caption = paste0("Source: Google. Updated: ", Sys.Date(),"."),
+       caption = paste0("Source: Google. Updated: ", lastdate,"."),
        x = " ",
        y = "Change relative to baseline (%)") + theme_linedraw() +
   theme(panel.border = element_blank(),

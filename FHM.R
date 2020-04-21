@@ -49,15 +49,18 @@ data$N_ICU_growth <- 100 * (data$N_ICU_cum / data$N_ICU_cum_lag - 1)
 
 plotdata <- subset(data, date >= "2020-03-17")
 
+lastdate <- max(na.omit(data$date))
+
 # Plot death toll
 p <- ggplot(plotdata, aes(x=date)) +
   geom_line(aes(y = N_dead_growth, colour = "Deaths")) +
   geom_line(aes(y = N_case_growth, colour = "Cases")) +
   geom_line(aes(y = N_ICU_growth, colour = "ICU")) +
   scale_colour_manual("", breaks = c("Deaths", "Cases", "ICU"), values = c("red", "black", "orange")) +
+  scale_x_date(date_breaks = "3 day", date_labels = "%d/%m") +
   xlab(" ") +
  labs(title = "Daily growth rate total Swedish Covid-19 cases, ICU and deaths",
-       caption = paste0("Source: Folkh�lsomyndigheten. Updated: ", Sys.Date(),"."),
+       caption = paste0("Source: Public Health Agency of Sweden. Updated: ", lastdate,"."),
        x = " ",
        y = "Daily growth rate (%)") + theme_linedraw() + theme(panel.border = element_blank(),
  panel.grid.major = element_line(linetype = "dotted", color = "grey60", size = 0.2),
