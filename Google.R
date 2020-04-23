@@ -16,12 +16,12 @@ lastdate <- max(Google_SE$date)
 
 # Create plot
 p <- ggplot(Google_SE, aes(x=date)) +
-  geom_line(aes(y = parks_percent_change_from_baseline, colour = "Parks")) +
-  geom_line(aes(y = residential_percent_change_from_baseline, colour = "Residential")) +
-  geom_line(aes(y = grocery_and_pharmacy_percent_change_from_baseline, colour = "Grocery & pharmacy")) +
-  geom_line(aes(y = retail_and_recreation_percent_change_from_baseline, colour = "Retail & recreation")) +
-  geom_line(aes(y = workplaces_percent_change_from_baseline, colour = "Workplace")) +
-  geom_line(aes(y = transit_stations_percent_change_from_baseline, colour = "Transit stations")) +
+  geom_line(aes(y = parks_percent_change_from_baseline, colour = "Parks"),  size = 1) +
+  geom_line(aes(y = residential_percent_change_from_baseline, colour = "Residential"),  size = 1) +
+  geom_line(aes(y = grocery_and_pharmacy_percent_change_from_baseline, colour = "Grocery & pharmacy"),  size = 1) +
+  geom_line(aes(y = retail_and_recreation_percent_change_from_baseline, colour = "Retail & recreation"),  size = 1) +
+  geom_line(aes(y = workplaces_percent_change_from_baseline, colour = "Workplace"),  size = 1) +
+  geom_line(aes(y = transit_stations_percent_change_from_baseline, colour = "Transit stations"),  size = 1) +
   scale_colour_manual("",
                       breaks = c("Parks", "Residential", "Grocery & pharmacy", "Retail & recreation", "Workplace", "Transit stations"),
                       values = c("red", "blue", "green", "orange", "black", "grey")) +

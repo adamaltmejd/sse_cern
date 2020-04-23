@@ -18,7 +18,7 @@ lastdate <- max(OMX30$Date)
 
 # Create plot
 p <- ggplot(OMX30, aes(x=Date)) +
-  geom_line(aes(y = Close), color = "red") + geom_point(aes(y = lastclose), color = "red") +
+  geom_line(aes(y = Close), color = "red", size = 1) + geom_point(aes(y = lastclose), color = "red") +
   geom_hline(yintercept=last(OMX30$Close), linetype="dashed", color = "red") +
    scale_x_date(date_breaks = "1 month", date_labels = "%b %y") +
 

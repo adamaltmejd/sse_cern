@@ -21,7 +21,7 @@ lastweek <- max(temp$wk)
 
 # Plot death toll
 p <- ggplot(plotdata, aes(x=wk)) +
-  geom_line(aes(y = y20), color = "red") + geom_point(aes(y=y20), color = "red") +
+  geom_line(aes(y = y20), color = "red", size = 1) + geom_point(aes(y=y20), color = "red") +
   geom_line(aes(y = y19), color = "grey") +
   geom_line(aes(y = y18), color = "grey") +
   geom_line(aes(y = y17), color = "grey") +

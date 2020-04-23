@@ -53,9 +53,9 @@ lastdate <- max(na.omit(data$date))
 
 # Plot death toll
 p <- ggplot(plotdata, aes(x=date)) +
-  geom_line(aes(y = N_dead_growth, colour = "Deaths")) +
-  geom_line(aes(y = N_case_growth, colour = "Cases")) +
-  geom_line(aes(y = N_ICU_growth, colour = "ICU")) +
+  geom_line(aes(y = N_dead_growth, colour = "Deaths"),  size = 1) +
+  geom_line(aes(y = N_case_growth, colour = "Cases"),  size = 1) +
+  geom_line(aes(y = N_ICU_growth, colour = "ICU"),  size = 1) +
   scale_colour_manual("", breaks = c("Deaths", "Cases", "ICU"), values = c("red", "black", "orange")) +
   scale_x_date(date_breaks = "3 day", date_labels = "%d/%m") +
   xlab(" ") +
