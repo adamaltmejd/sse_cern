@@ -64,7 +64,8 @@ p <- ggplot(plotdata, aes(x=date)) +
        x = " ",
        y = "Daily growth rate (%)") + theme_linedraw() + theme(panel.border = element_blank(),
  panel.grid.major = element_line(linetype = "dotted", color = "grey60", size = 0.2),
- panel.grid.minor = element_line(linetype = "dotted", color = "grey80", size = 0.2))
+ panel.grid.minor = element_line(linetype = "dotted", color = "grey80", size = 0.2),
+ plot.title = element_text(size = 20))
 
 ggsave(filename = file.path("docs", "growth.png"), plot = p,
        height = 6, width = 10, units="in", dpi = 300,

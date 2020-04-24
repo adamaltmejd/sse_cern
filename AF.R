@@ -70,7 +70,8 @@ labs(title = "Advance layoff notifications in 2020",
      y = "Number of employees notified") + theme_linedraw() + theme(panel.border = element_blank(),
           panel.grid.major = element_line(linetype = "dotted", color = "grey60", size = 0.2),
           panel.grid.minor = element_line(linetype = "dotted", color = "grey80", size = 0.2),
-          axis.text.x = element_text(angle = 90, hjust = 1))
+          axis.text.x = element_text(angle = 90, hjust = 1),
+          plot.title = element_text(size = 20))
 
 ggsave(filename = file.path("docs", "layoff.png"), plot = p,
        height = 6, width = 10, units="in", dpi = 300,
