@@ -41,19 +41,25 @@ for (d in dates) {
 
 setnames(Dead, c("Date", "N", "ReportDate"))
 Dead[, Date := as.Date(as.numeric(Date), origin = "1970-01-01")]
+Dead[, ReportDate := as.Date(as.numeric(ReportDate), origin = "1970-01-01")]
+
 Dead[is.na(N), N := 0]
 
 plotdata <- subset(Dead, Date >= "2020-03-17")
+plotdata$Ntoday <- plotdata$N
+plotdata[ReportDate < as.Date(Sys.Date()), Ntoday := NA]
 
 p <- ggplot(plotdata, aes(x=Date, group = ReportDate)) +
-    geom_line(aes(y=N, color = as.factor(ReportDate)), size = 1) + scale_color_grey("Reporting date", start = 1, end = 0.3) +
+    geom_line(aes(y=N, color = ReportDate), size = 1) + scale_colour_date(name = "Reporting date", low = "yellow", high = "red") +
+    geom_line(aes(y=Ntoday, lty=format(Sys.time(), "%b %d")), color="black", size = 1.5) +
+    scale_linetype(name = "Latest report") +
     scale_x_date(date_breaks = "3 day", date_labels = "%d/%m") +
     xlab(" ") +
-    labs(title = "Swedish Covid-19 deaths: Death date vs reporting date",
+    labs(title = "Swedish Covid-19 mortality: Death dates by reporting date",
          caption = paste0("Source: Public Health Agency of Sweden. Updated: ", Sys.Date(),"."),
          x = "Date of death",
          y = "Daily number of Covid-19 deaths") + theme_linedraw() + theme(panel.border = element_blank(),
-             panel.grid.major = element_line(linetype = "dotted", color = "grey60", size = 0.2),
+          panel.grid.major = element_line(linetype = "dotted", color = "grey60", size = 0.2),
              panel.grid.minor = element_line(linetype = "dotted", color = "grey80", size = 0.2),
              plot.title = element_text(size = 20))
 

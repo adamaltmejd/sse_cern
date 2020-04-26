@@ -37,3 +37,6 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+data/AF/AF_Apr.xls
+data/OMX30/OMX30.csv
+data/OMX30/OMX30.csv
