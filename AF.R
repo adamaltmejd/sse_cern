@@ -13,7 +13,7 @@ download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565432/
 download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d956585b8/1586106682398/varsel-riket_2020-03.xls",
               destfile = file.path("data", "AF", "AF_Mar.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
 
-download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565b216/1587902256964/Varsel-riket_2020-04-24.xls",
+download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565bfca/1588515009262/varsel-riket_2020-04.xls",
               destfile = file.path("data", "AF", "AF_Apr.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
 
 # Store relevant data
@@ -33,7 +33,7 @@ setnames(AF_Mar, c("SNI", "Name", "N_not", "N"))
 AF_Mar$Month <- "March"
 
 destfile <- file.path("data", "AF", "AF_Apr.xls")
-AF_Apr <-  data.table((read_excel(destfile, sheet = 1, range="A12:D31", col_types = c("text","text","numeric","numeric"))))
+AF_Apr <-  data.table((read_excel(destfile, sheet = 1, range="A7:D26", col_types = c("text","text","numeric","numeric"))))
 setnames(AF_Apr, c("SNI", "Name", "N_not", "N"))
 AF_Apr$Month <- "April"
 
@@ -64,8 +64,8 @@ AF$SNI2[AF$SNI == "S"] <- "Other services"
 
 p <- ggplot(AF, aes(SNI2, N, group = Month)) +
   geom_col(aes(fill = Month)) +
-labs(title = "Advance layoff notifications in 2020",
-     caption = paste0("Source: Swedish Public Employment Service. Updated: 2020-04-24."),
+labs(title = "Advance layoff notifications by sector in 2020",
+     caption = paste0("Source: Swedish Public Employment Service. Updated: 2020-04-30."),
      x = " ",
      y = "Number of employees notified") + theme_linedraw() + theme(panel.border = element_blank(),
           panel.grid.major = element_line(linetype = "dotted", color = "grey60", size = 0.2),
