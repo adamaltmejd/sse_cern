@@ -53,7 +53,7 @@ p <- ggplot(plotdata, aes(x=Date, group = ReportDate)) +
     geom_line(aes(y=N, color = ReportDate), size = 1) + scale_colour_date(name = "Reporting date", low = "yellow", high = "red") +
     geom_line(aes(y=Ntoday, lty=format(Sys.time(), "%b %d")), color="black", size = 1.5) +
     scale_linetype(name = "Latest report") +
-    scale_x_date(date_breaks = "3 day", date_labels = "%d/%m") +
+    scale_x_date(date_breaks = "5 day", date_labels = "%d/%m") +
     xlab(" ") +
     labs(title = "Swedish Covid-19 mortality: Death dates by reporting date",
          caption = paste0("Source: Public Health Agency of Sweden. Updated: ", Sys.Date(),"."),

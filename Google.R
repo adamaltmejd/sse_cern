@@ -25,7 +25,7 @@ p <- ggplot(Google_SE, aes(x=date)) +
   scale_colour_manual("",
                       breaks = c("Parks", "Residential", "Grocery & pharmacy", "Retail & recreation", "Workplace", "Transit stations"),
                       values = c("red", "blue", "green", "orange", "black", "grey")) +
-    scale_x_date(date_breaks = "3 day", date_labels = "%d/%m") +
+    scale_x_date(date_breaks = "5 day", date_labels = "%d/%m") +
     xlab(" ") +
   labs(title = "Google Community Mobility Index for Sweden",
        caption = paste0("Source: Google. Updated: ", lastdate,"."),

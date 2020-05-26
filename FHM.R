@@ -57,7 +57,7 @@ p <- ggplot(plotdata, aes(x=date)) +
   geom_line(aes(y = N_case_growth, colour = "Cases"),  size = 1) +
   geom_line(aes(y = N_ICU_growth, colour = "ICU"),  size = 1) +
   scale_colour_manual("", breaks = c("Deaths", "Cases", "ICU"), values = c("red", "black", "orange")) +
-  scale_x_date(date_breaks = "3 day", date_labels = "%d/%m") +
+  scale_x_date(date_breaks = "5 day", date_labels = "%d/%m") +
   xlab(" ") +
  labs(title = "Daily growth rate total Swedish Covid-19 cases, ICU and deaths",
        caption = paste0("Source: Public Health Agency of Sweden. Updated: ", lastdate,"."),

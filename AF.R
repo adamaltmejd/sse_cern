@@ -16,6 +16,9 @@ download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d956585b8
 download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565bfca/1588515009262/varsel-riket_2020-04.xls",
               destfile = file.path("data", "AF", "AF_Apr.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
 
+download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565e94f/1590341346821/Varsel-riket_2020-05-22.xls",
+              destfile = file.path("data", "AF", "AF_May.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
+
 # Store relevant data
 destfile <- file.path("data", "AF", "AF_Jan.xls")
 AF_Jan <-  data.table((read_excel(destfile, sheet = 1, range="A7:D26", col_types = c("text","text","numeric","numeric"))))
@@ -37,10 +40,15 @@ AF_Apr <-  data.table((read_excel(destfile, sheet = 1, range="A7:D26", col_types
 setnames(AF_Apr, c("SNI", "Name", "N_not", "N"))
 AF_Apr$Month <- "April"
 
-AF <- rbind(AF_Jan,AF_Feb,AF_Mar,AF_Apr)
+destfile <- file.path("data", "AF", "AF_May.xls")
+AF_May <-  data.table((read_excel(destfile, sheet = 1, range="A12:D31", col_types = c("text","text","numeric","numeric"))))
+setnames(AF_May, c("SNI", "Name", "N_not", "N"))
+AF_May$Month <- "May"
+
+AF <- rbind(AF_Jan,AF_Feb,AF_Mar,AF_Apr,AF_May)
 AF$N[is.na(AF$N)] <- 0
 
-AF$Month <- factor(AF$Month, levels = c("April", "March", "February", "January"))
+AF$Month <- factor(AF$Month, levels = c("May", "April", "March", "February", "January"))
 
 AF$SNI2[AF$SNI == "A"] <- "Agriculture"
 AF$SNI2[AF$SNI == "B"] <- "Mining"
@@ -65,7 +73,7 @@ AF$SNI2[AF$SNI == "S"] <- "Other services"
 p <- ggplot(AF, aes(SNI2, N, group = Month)) +
   geom_col(aes(fill = Month)) +
 labs(title = "Advance layoff notifications by sector in 2020",
-     caption = paste0("Source: Swedish Public Employment Service. Updated: 2020-04-30."),
+     caption = paste0("Source: Swedish Public Employment Service. Updated: 2020-05-22."),
      x = " ",
      y = "Number of employees notified") + theme_linedraw() + theme(panel.border = element_blank(),
           panel.grid.major = element_line(linetype = "dotted", color = "grey60", size = 0.2),
