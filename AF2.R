@@ -20,7 +20,7 @@ p <- ggplot(plotdata, aes(x=wk)) +
     geom_line(aes(y = y20, colour = "y2020"), size = 1) + geom_point(aes(y=y20), color = "red") +
     geom_line(aes(y = y19, colour = "y2019"), size = 1)  +
     geom_line(aes(y = y18, colour = "y2018"), size = 1)  +
-    scale_colour_manual("", breaks = c("y2020", "y2019", "y2018"), values = c("grey", "black", "red"), labels = c("2020", "2019", "2018")) +
+    scale_colour_manual("", breaks = c("y2020", "y2019", "y2018"), values = c("red", "black", "grey"), labels = c("2020", "2019", "2018")) +
 
   scale_x_continuous(breaks = seq(1,current_wk+10,by = 1)) +  xlab(" ") +
   labs(title = "Number unemployed registered at Swedish Public Employment Service",
