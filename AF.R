@@ -16,8 +16,12 @@ download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d956585b8
 download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565bfca/1588515009262/varsel-riket_2020-04.xls",
               destfile = file.path("data", "AF", "AF_Apr.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
 
-download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565e94f/1590341346821/Varsel-riket_2020-05-22.xls",
+download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d95651129d/1591518873752/varsel-riket-2020-05.xls",
               destfile = file.path("data", "AF", "AF_May.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
+
+download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565112d4/1591536656036/Varsel-riket_2020-06-05.xls",
+              destfile = file.path("data", "AF", "AF_June.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
+
 
 # Store relevant data
 destfile <- file.path("data", "AF", "AF_Jan.xls")
@@ -41,14 +45,19 @@ setnames(AF_Apr, c("SNI", "Name", "N_not", "N"))
 AF_Apr$Month <- "April"
 
 destfile <- file.path("data", "AF", "AF_May.xls")
-AF_May <-  data.table((read_excel(destfile, sheet = 1, range="A12:D31", col_types = c("text","text","numeric","numeric"))))
+AF_May <-  data.table((read_excel(destfile, sheet = 1, range="A7:D26", col_types = c("text","text","numeric","numeric"))))
 setnames(AF_May, c("SNI", "Name", "N_not", "N"))
 AF_May$Month <- "May"
 
-AF <- rbind(AF_Jan,AF_Feb,AF_Mar,AF_Apr,AF_May)
+destfile <- file.path("data", "AF", "AF_June.xls")
+AF_June <-  data.table((read_excel(destfile, sheet = 1, range="A12:D31", col_types = c("text","text","numeric","numeric"))))
+setnames(AF_June, c("SNI", "Name", "N_not", "N"))
+AF_June$Month <- "June"
+
+AF <- rbind(AF_Jan,AF_Feb,AF_Mar,AF_Apr,AF_May,AF_June)
 AF$N[is.na(AF$N)] <- 0
 
-AF$Month <- factor(AF$Month, levels = c("May", "April", "March", "February", "January"))
+AF$Month <- factor(AF$Month, levels = c("June", "May", "April", "March", "February", "January"))
 
 AF$SNI2[AF$SNI == "A"] <- "Agriculture"
 AF$SNI2[AF$SNI == "B"] <- "Mining"
