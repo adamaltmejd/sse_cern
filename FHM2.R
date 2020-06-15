@@ -29,7 +29,7 @@ for (d in dates) {
     destfile <- file.path("data", "FHM", paste0("Folkhalsomyndigheten_Covid19_",as.Date(d,origin="1970-01-01"),".xlsx"))
     temp <- data.table((read_excel(destfile, sheet = 2, col_types = c("text", "numeric"))))
     setnames(temp, c("Date", "N"))
-    temp[Date == "Uppgift saknas" | Date == "uppgift saknas", Date := NA]
+    temp[Date == "Uppgift saknas" | Date == "uppgift saknas" | Date == "Uppgift saknaa", Date := NA]
     if (can_be_numeric(temp[, Date])) {
         temp[, Date := as.Date(as.numeric(Date), origin = "1899-12-30")]
     } else {
