@@ -1,4 +1,4 @@
-library(readxl)
+﻿library(readxl)
 library(data.table)
 library(ggplot2)
 library(dplyr)
@@ -19,7 +19,7 @@ download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565bfca
 download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d95651129d/1591518873752/varsel-riket-2020-05.xls",
               destfile = file.path("data", "AF", "AF_May.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
 
-download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565112d4/1591536656036/Varsel-riket_2020-06-05.xls",
+download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565144e6/1592743936311/Varsel-riket_2020-06-19.xls",
               destfile = file.path("data", "AF", "AF_June.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
 
 
@@ -82,7 +82,7 @@ AF$SNI2[AF$SNI == "S"] <- "Other services"
 p <- ggplot(AF, aes(SNI2, N, group = Month)) +
   geom_col(aes(fill = Month)) +
 labs(title = "Advance layoff notifications by sector in 2020",
-     caption = paste0("Source: Swedish Public Employment Service. Updated: 2020-05-22."),
+     caption = paste0("Source: Swedish Public Employment Service. Updated: 2020-06-19."),
      x = " ",
      y = "Number of employees notified") + theme_linedraw() + theme(panel.border = element_blank(),
           panel.grid.major = element_line(linetype = "dotted", color = "grey60", size = 0.2),

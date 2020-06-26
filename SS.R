@@ -4,8 +4,7 @@ require(ggplot2)
 require(dplyr)
 
 # Download latest Socialstyrelsen data and save Excel file
-download.file("https://www.socialstyrelsen.se/globalassets/sharepoint-dokument/dokument-webb/statistik/antal-doda-per-100000-per-lan-och-vecka-2015-2020.xlsx",
-              destfile = file.path("data", "SS", "SS_latest.xlsx"), method = "curl", extra = c("-L"), quiet = FALSE)
+download.file("https://www.socialstyrelsen.se/globalassets/1-globalt/covid-19-statistik/statistik-relaterad-till-covid-19/antal-doda--per-lan-och-vecka-2015-v1-2020.xlsx", destfile = file.path("data", "SS", "SS_latest.xlsx"), method = "curl", extra = c("-L"), quiet = FALSE)
 
 # Store relevant data
 destfile <- file.path("data", "SS", "SS_latest.xlsx")
