@@ -1,6 +1,6 @@
 # Runs all files
-source("AF.R")
-source("AF2.R")
+#source("AF.R")
+#source("AF2.R")
 source("FHM.R")
 source("FHM2.R")
 source("FHM3.R")
