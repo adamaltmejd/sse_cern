@@ -13,6 +13,8 @@ Google <-  data.table(read_csv(destfile))
 Google_SE <- subset(Google, country_region_code == "SE" & is.na(sub_region_1)==1)
 Google_SE[, date := as.Date(date, "%y-%m-%d")]
 lastdate <- max(Google_SE$date)
+file.remove(destfile)
+
 
 # Create plot
 p <- ggplot(Google_SE, aes(x=date)) +
