@@ -19,8 +19,14 @@ download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565bfca
 download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d95651129d/1591518873752/varsel-riket-2020-05.xls",
               destfile = file.path("data", "AF", "AF_May.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
 
-download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565144e6/1592743936311/Varsel-riket_2020-06-19.xls",
+download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d9565168ff/1594014512392/varsel-riket_2020-06.xls",
               destfile = file.path("data", "AF", "AF_June.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
+
+download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d95651b910/1596990900641/varsel-riket_2020-07.xls",
+              destfile = file.path("data", "AF", "AF_July.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
+
+download.file("https://arbetsformedlingen.se/download/18.2bef8e33170a57d95651cde1/1597651067705/Varsel-riket_2020-08-14.xls",
+              destfile = file.path("data", "AF", "AF_Aug.xls"), method = "curl", extra = c("-L"), quiet = FALSE)
 
 
 # Store relevant data
@@ -50,14 +56,24 @@ setnames(AF_May, c("SNI", "Name", "N_not", "N"))
 AF_May$Month <- "May"
 
 destfile <- file.path("data", "AF", "AF_June.xls")
-AF_June <-  data.table((read_excel(destfile, sheet = 1, range="A12:D31", col_types = c("text","text","numeric","numeric"))))
+AF_June <-  data.table((read_excel(destfile, sheet = 1, range="A7:D26", col_types = c("text","text","numeric","numeric"))))
 setnames(AF_June, c("SNI", "Name", "N_not", "N"))
 AF_June$Month <- "June"
 
-AF <- rbind(AF_Jan,AF_Feb,AF_Mar,AF_Apr,AF_May,AF_June)
+destfile <- file.path("data", "AF", "AF_July.xls")
+AF_July <-  data.table((read_excel(destfile, sheet = 1, range="A7:D26", col_types = c("text","text","numeric","numeric"))))
+setnames(AF_July, c("SNI", "Name", "N_not", "N"))
+AF_July$Month <- "July"
+
+destfile <- file.path("data", "AF", "AF_Aug.xls")
+AF_Aug <-  data.table((read_excel(destfile, sheet = 1, range="A12:D31", col_types = c("text","text","numeric","numeric"))))
+setnames(AF_Aug, c("SNI", "Name", "N_not", "N"))
+AF_Aug$Month <- "Aug"
+
+AF <- rbind(AF_Jan,AF_Feb,AF_Mar,AF_Apr,AF_May,AF_June,AF_July,AF_Aug)
 AF$N[is.na(AF$N)] <- 0
 
-AF$Month <- factor(AF$Month, levels = c("June", "May", "April", "March", "February", "January"))
+AF$Month <- factor(AF$Month, levels = c("August", "July", "June", "May", "April", "March", "February", "January"))
 
 AF$SNI2[AF$SNI == "A"] <- "Agriculture"
 AF$SNI2[AF$SNI == "B"] <- "Mining"
@@ -82,7 +98,7 @@ AF$SNI2[AF$SNI == "S"] <- "Other services"
 p <- ggplot(AF, aes(SNI2, N, group = Month)) +
   geom_col(aes(fill = Month)) +
 labs(title = "Advance layoff notifications by sector in 2020",
-     caption = paste0("Source: Swedish Public Employment Service. Updated: 2020-06-19."),
+     caption = paste0("Source: Swedish Public Employment Service. Updated: 2020-08-14."),
      x = " ",
      y = "Number of employees notified") + theme_linedraw() + theme(panel.border = element_blank(),
           panel.grid.major = element_line(linetype = "dotted", color = "grey60", size = 0.2),
