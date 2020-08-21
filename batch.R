@@ -4,7 +4,7 @@
 source("AF.R")
 source("AF2.R")
 source("FHM4.R")
-source("Google.R")
+#source("Google.R")
 source("OMX30.R")
 source("SS.R")
 
