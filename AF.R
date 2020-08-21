@@ -68,7 +68,7 @@ AF_July$Month <- "July"
 destfile <- file.path("data", "AF", "AF_Aug.xls")
 AF_Aug <-  data.table((read_excel(destfile, sheet = 1, range="A12:D31", col_types = c("text","text","numeric","numeric"))))
 setnames(AF_Aug, c("SNI", "Name", "N_not", "N"))
-AF_Aug$Month <- "Aug"
+AF_Aug$Month <- "August"
 
 AF <- rbind(AF_Jan,AF_Feb,AF_Mar,AF_Apr,AF_May,AF_June,AF_July,AF_Aug)
 AF$N[is.na(AF$N)] <- 0
